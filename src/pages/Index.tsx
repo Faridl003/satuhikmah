@@ -28,10 +28,8 @@ import { useEffect } from "react";
 
 const Index = () => {
   useEffect(() => {
-    // Set document title
     document.title = "SatuHikmah - Komunitas Pengembangan Pemuda Muslim Indonesia | Program Spiritual & Karir";
     
-    // Create and set meta tags
     const setMetaTag = (name, content, property = false) => {
       let meta = document.querySelector(property ? `meta[property="${name}"]` : `meta[name="${name}"]`);
       if (!meta) {
@@ -46,7 +44,6 @@ const Index = () => {
       meta.setAttribute('content', content);
     };
 
-    // Primary Meta Tags
     setMetaTag('description', 'Komunitas SatuHikmah mengiringi pemuda Muslim usia 18-24 tahun menemukan jati diri, mengembangkan spiritual, dan mempersiapkan karir halal. Bergabunglah dengan program Kembara Hikmah, Digital Mindfulness, dan Youth Career Workshop.');
     setMetaTag('keywords', 'komunitas muslim, pemuda islam, pengembangan diri islam, spiritual growth, karir halal, digital detox islam, kembara hikmah, surabaya, komunitas muslim surabaya, pengembangan pemuda muslim, program spiritual islam');
     setMetaTag('robots', 'index, follow');
@@ -54,7 +51,6 @@ const Index = () => {
     setMetaTag('author', 'SatuHikmah');
     setMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 
-    // Open Graph Tags
     setMetaTag('og:type', 'website', true);
     setMetaTag('og:url', 'https://satuhikmah.id/', true);
     setMetaTag('og:title', 'SatuHikmah - Komunitas Pengembangan Pemuda Muslim Indonesia', true);
@@ -63,14 +59,12 @@ const Index = () => {
     setMetaTag('og:site_name', 'SatuHikmah', true);
     setMetaTag('og:locale', 'id_ID', true);
 
-    // Twitter Tags
     setMetaTag('twitter:card', 'summary_large_image', true);
     setMetaTag('twitter:url', 'https://satuhikmah.id/', true);
     setMetaTag('twitter:title', 'SatuHikmah - Komunitas Pengembangan Pemuda Muslim Indonesia', true);
     setMetaTag('twitter:description', 'Komunitas SatuHikmah mengiringi pemuda Muslim usia 18-24 tahun menemukan jati diri, mengembangkan spiritual, dan mempersiapkan karir halal.', true);
     setMetaTag('twitter:image', 'https://satuhikmah.id/og-image.jpg', true);
 
-    // Canonical URL
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -79,7 +73,6 @@ const Index = () => {
     }
     canonical.setAttribute('href', 'https://satuhikmah.id/');
 
-    // Schema Markup for Organization
     const schemaScript = document.createElement('script');
     schemaScript.type = 'application/ld+json';
     schemaScript.textContent = JSON.stringify({
@@ -141,7 +134,6 @@ const Index = () => {
     });
     document.head.appendChild(schemaScript);
 
-    // Additional Schema for Local Business
     const localBusinessSchema = document.createElement('script');
     localBusinessSchema.type = 'application/ld+json';
     localBusinessSchema.textContent = JSON.stringify({
@@ -172,7 +164,6 @@ const Index = () => {
     });
     document.head.appendChild(localBusinessSchema);
 
-    // FAQ Schema
     const faqSchema = document.createElement('script');
     faqSchema.type = 'application/ld+json';
     faqSchema.textContent = JSON.stringify({
@@ -216,7 +207,6 @@ const Index = () => {
     document.head.appendChild(faqSchema);
 
     return () => {
-      // Cleanup function to remove added elements if needed
       const scripts = document.querySelectorAll('script[type="application/ld+json"]');
       scripts.forEach(script => {
         if (script.textContent.includes('SatuHikmah')) {
@@ -230,7 +220,6 @@ const Index = () => {
     window.open("https://chat.whatsapp.com/GBirJ9uEJXEEzZNBSPzhrd", "_blank");
   };
 
-  // Team data
   const founders = [
     {
       name: "Mirza Rahmat Hakim",
@@ -293,7 +282,6 @@ Sebagai advisor SatuHikmah, Eko memberi kontribusi pada aspek digitalisasi, inov
     },
   ];
 
-  // About data
   const challenges = [
     {
       title: "Kecanduan digital dan masalah kesehatan mental",
@@ -338,7 +326,6 @@ Sebagai advisor SatuHikmah, Eko memberi kontribusi pada aspek digitalisasi, inov
     }
   ];
 
-  // Program data
   const programs = [
     {
       title: "KEMBARA HIKMAH",
@@ -456,7 +443,6 @@ Sebagai advisor SatuHikmah, Eko memberi kontribusi pada aspek digitalisasi, inov
     return icons[programIndex]?.[index] || <Target className="w-4 h-4 sm:w-5 sm:h-5" />;
   };
 
-  // Contact data
   const contactInfo = [
     {
       icon: <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />,
@@ -559,7 +545,7 @@ Sebagai advisor SatuHikmah, Eko memberi kontribusi pada aspek digitalisasi, inov
               {/* Tombol Tim - DIPERBAIKI */}
               <button
                 onClick={() => {
-                  console.log('Tim button clicked!'); // Debug log
+                  console.log('Tim button clicked!'); 
                   const teamElement = document.querySelector('#team');
                   if (teamElement) {
                     teamElement.scrollIntoView({ behavior: 'smooth' });
