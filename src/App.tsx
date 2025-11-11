@@ -5,8 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
+import ProgramPage from "./pages/program";
+import ProductsSection from "./pages/products/product_page";
 // import Team from "./pages/Team";
-
 
 const queryClient = new QueryClient();
 
@@ -22,8 +23,8 @@ const App = () => (
           {/* Keep fallback routes for direct navigation */}
           <Route path="/team" element={<Index />} />
           <Route path="/about" element={<Index />} />
-          <Route path="/program" element={<Index />} />
-          <Route path="/contact" element={<Index />} />
+          <Route path="/program" element={<ProgramPage />} />
+          <Route path="/product" element={<ProductsSection />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
