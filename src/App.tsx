@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import ProgramPage from "./pages/program";
 import ProductsSection from "./pages/products/product_page";
+import Quiz from "./pages/kuis/quiz_identity";
 // import Team from "./pages/Team";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/about" element={<Index />} />
           <Route path="/program" element={<ProgramPage />} />
           <Route path="/product" element={<ProductsSection />} />
+          <Route path="/quiz/:page" element={<Quiz />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
