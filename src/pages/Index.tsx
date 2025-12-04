@@ -250,7 +250,7 @@ const Index = () => {
 
       {/* Sections */}
       <OurValues />
-      <ProgramPage />
+      <ProgramPage judul={"Programs"} subsJud={"On Going"} />
       <ProductsSection />
       <CommunityVoices />
       <OurTeam />

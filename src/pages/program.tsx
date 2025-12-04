@@ -47,7 +47,7 @@ const ArrowIcon = ({ className = "" }) => (
 );
 
 // Main Programs Section Component
-export default function ProgramsSection() {
+export default function ProgramsSection({ judul, subsJud }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Group programs into pairs to create slides for the carousel
@@ -75,9 +75,9 @@ export default function ProgramsSection() {
     >
       <div className="max-w-7xl mx-auto ">
         <div className="text-center mb-12">
-          <p className="text-lg font-semibold text-gray-600">On Going</p>
+          <p className="text-lg font-semibold text-gray-600">{subsJud}</p>
           <h2 className="mt-2 text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
-            Programs
+            {judul}
           </h2>
         </div>
 

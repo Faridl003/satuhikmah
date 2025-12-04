@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -7,6 +7,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const navigation = [
     { name: "Beranda", href: "#home" },
@@ -26,12 +28,22 @@ const Navbar = () => {
       //   { name: "Kelas Online", href: "#produk-kelas" },
       // ],
     },
+    { name: "Kuis", href: "/quiz/1" },
     { name: "Tim Kami", href: "#team" },
   ];
 
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/" + href);
+      } else {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(href);
+    }
+
     setIsOpen(false);
     setOpenDropdown(null);
   };
@@ -39,19 +51,23 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       let currentSection = "";
+
       navigation.forEach((item) => {
-        if (item.href) {
-          const section = document.querySelector(item.href);
-          if (section) {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= 80 && rect.bottom >= 80) {
-              currentSection = item.href;
-            }
+        // SKIP jika bukan anchor #
+        if (!item.href || !item.href.startsWith("#")) return;
+
+        const section = document.querySelector(item.href);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom >= 80) {
+            currentSection = item.href;
           }
         }
       });
+
       setActiveSection(currentSection);
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);

@@ -1,138 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-// === Daftar Semua Pertanyaan ===
-const questions = [
-  {
-    id: 1,
-    text: "Saya merasa jelas tentang siapa diri saya dan prinsip hidup saya sebagai seorang Muslim.",
-  },
-  {
-    id: 2,
-    text: "Saya bangga dengan latar belakang agama, budaya, dan keluarga saya.",
-  },
-  {
-    id: 3,
-    text: "Saya merasa pola pengasuhan masa kecil memengaruhi pandangan saya tentang diri sendiri. (negasi)",
-  },
-  {
-    id: 4,
-    text: "Saya mampu mengekspresikan siapa diri saya walaupun tidak selalu disetujui orang lain.",
-  },
-  {
-    id: 5,
-    text: "Saya merasa jadi Muslim itu berat atau terasa asing dengan lingkungan sekitar.",
-  },
-  {
-    id: 6,
-    text: "Saya mengambil langkah untuk menegaskan jati diri saya dalam kehidupan sehari-hari.",
-  },
-  {
-    id: 7,
-    text: "Saya berani menolak hal yang bertentangan dengan prinsip saya.",
-  },
-
-  {
-    id: 8,
-    text: "Saya mampu mengenali emosi saya saat marah, sedih, atau kecewa.",
-  },
-  {
-    id: 9,
-    text: "Saya bisa tetap fokus meskipun sedang terganggu oleh perasaan negatif.",
-  },
-  {
-    id: 10,
-    text: "Luka masa kecil memengaruhi cara saya merespon stres atau masalah. (negasi)",
-  },
-  {
-    id: 11,
-    text: "Saat sedang marah, saya tahu cara menenangkan diri dengan cara sehat.",
-  },
-  { id: 12, text: "Saya dapat menahan diri dari reaksi impulsif." },
-  {
-    id: 13,
-    text: "Saya mengevaluasi perasaan dan tindakan saya secara sadar.",
-  },
-  {
-    id: 14,
-    text: "Saya meminta bantuan atau berbagi cerita saat merasa emosional.",
-  },
-
-  { id: 15, text: "Hidup saya memiliki arah dan makna." },
-  {
-    id: 16,
-    text: "Saya kadang merasa hidup berjalan tanpa tujuan atau seperti “auto-pilot”. (negasi, reverse)",
-  },
-  {
-    id: 17,
-    text: "Luka pengasuhan memengaruhi cara saya memaknai tujuan hidup saya.",
-  },
-  {
-    id: 18,
-    text: "Saya jarang melakukan hal yang saya anggap penting atau bermanfaat untuk orang lain atau umat.",
-  },
-  {
-    id: 19,
-    text: "Saya mampu menetapkan tujuan hidup yang jelas untuk diri saya.",
-  },
-  { id: 20, text: "Saya menilai progres diri terhadap tujuan hidup saya." },
-  {
-    id: 21,
-    text: "Saya berusaha mengejar tujuan hidup sesuai prinsip saya, walau menghadapi tantangan dan kegagalan",
-  },
-
-  { id: 22, text: "Saya merasa aman dalam membangun hubungan dekat." },
-  {
-    id: 23,
-    text: "Saya percaya orang-orang di sekitar saya peduli pada saya.",
-  },
-  {
-    id: 24,
-    text: "Luka pengasuhan atau pengalaman masa kecil memengaruhi hubungan saya sekarang. (negasi)",
-  },
-  {
-    id: 25,
-    text: "Saya berusaha menyembuhkan luka masa kecil atau inner child yang belum sembuh.",
-  },
-  {
-    id: 26,
-    text: "Saya tidak memiliki orang yang bisa diajak berbagi cerita pribadi.",
-  },
-  { id: 27, text: "Saya aktif membangun hubungan positif baru." },
-  {
-    id: 28,
-    text: "Saya mengekspresikan rasa terima kasih atau apresiasi kepada orang dekat saya.",
-  },
-
-  { id: 29, text: "Nilai dan prinsip hidup saya jelas dan konsisten." },
-  {
-    id: 30,
-    text: "Kadang saya merasa harus mengorbankan nilai demi diterima lingkungan. (negasi, reverse)",
-  },
-  {
-    id: 31,
-    text: "Luka pengasuhan memengaruhi cara saya memahami benar dan salah.",
-  },
-  {
-    id: 32,
-    text: "Saya sering kesulitan membuat keputusan sesuai nilai saya ketika itu tidak populer.",
-  },
-  { id: 33, text: "Saya menolong orang lain tanpa mengharapkan imbalan." },
-  { id: 34, text: "Saya menolak hal yang haram atau meragukan." },
-  {
-    id: 35,
-    text: "Pernah berada di situasi harus memilih: tetap pegang prinsip atau ikut arus, dan saya mampu memilih sesuai nilai.",
-  },
-];
-
-// === Judul Setiap Page ===
-const pageTitles = [
-  "1/5 Core: Identity",
-  "2/5 Core: Self Regulation",
-  "3/5 Core: Purpose",
-  "4/5 Core: Attachment",
-  "5/5 Core: Values & Character",
-];
+import { useNavigate } from "react-router-dom";
 
 // === Likert Scale ===
 const LikertScale = ({ questionId, selectedValue, onChange }) => {
@@ -177,17 +45,15 @@ const LikertScale = ({ questionId, selectedValue, onChange }) => {
         {options.map((opt) => (
           <button
             key={opt.value}
+            aria-label={`Jawaban nilai ${opt.value}`}
             type="button"
-            aria-label={`Pilih opsi ${opt.value}`}
             onClick={() => onChange(questionId, opt.value)}
             className={`rounded-full border-2 flex items-center justify-center transition-all
               ${opt.size} ${opt.colorClass}
               ${
                 selectedValue === opt.value ? opt.activeClass : "bg-transparent"
               }`}
-          >
-            <span className="sr-only">Pilih opsi {opt.value}</span>
-          </button>
+          />
         ))}
       </div>
 
@@ -200,22 +66,118 @@ const LikertScale = ({ questionId, selectedValue, onChange }) => {
 
 // === MAIN COMPONENT ===
 export default function QuizSlide() {
-  const perPage = 7;
-  const totalPages = Math.ceil(questions.length / perPage);
-
+  const [pages, setPages] = useState([]); // tiap core = 1 page
   const [currentPage, setCurrentPage] = useState(0);
   const [answers, setAnswers] = useState({});
   const [direction, setDirection] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
-  const startIndex = currentPage * perPage;
-  const currentQuestions = questions.slice(startIndex, startIndex + perPage);
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+    gender: "",
+  });
+
+  const isPageComplete = () => {
+    const currentQuestions = pages[currentPage].questions;
+    return currentQuestions.every((q) => answers[q.id] !== undefined);
+  };
+
+  // Fetch data dari API
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("https://satuhikmah.site/questions");
+        const data = await res.json();
+
+        // pisahkan core dan pertanyaan
+        const cores = data.cores;
+        const questions = data.questions;
+
+        // bentuk pages per-core
+        const grouped = cores.map((core) => ({
+          coreName: core.name,
+          questions: questions
+            .filter((q) => q.core_id === core.id)
+            .sort((a, b) => a.position - b.position),
+        }));
+
+        setPages(grouped);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching API:", err);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const handleSubmitUser = async () => {
+    if (!userData.name || !userData.email || !userData.gender) {
+      alert("Nama, email, dan gender wajib diisi!");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(userData.email)) {
+      alert("Format email tidak valid. Harus menggunakan format yang benar.");
+      return;
+    }
+
+    setLoadingSubmit(true);
+
+    const formattedAnswers = Object.entries(answers).map(
+      ([questionId, score]) => ({
+        question_id: Number(questionId),
+        score,
+      })
+    );
+
+    const payload = {
+      ...userData,
+      answers: formattedAnswers,
+    };
+
+    try {
+      const res = await fetch("https://satuhikmah.site/result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      console.log("HASIL DARI BACKEND:", data);
+
+      if (!res.ok) {
+        alert(data.message || "Gagal mengirim hasil asesmen.");
+        setLoadingSubmit(false);
+        return;
+      }
+
+      // 🔥 INI BAGIAN PENTING — Redirect ke halaman hasil
+      navigate("/result", { state: data });
+      return;
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan saat mengirim data.");
+    }
+
+    setLoadingSubmit(false);
+  };
 
   const handleAnswerChange = (qId, value) => {
     setAnswers((prev) => ({ ...prev, [qId]: value }));
   };
 
   const nextPage = () => {
-    if (currentPage < totalPages - 1) {
+    if (currentPage < pages.length - 1) {
       setDirection(1);
       setCurrentPage((p) => p + 1);
     }
@@ -228,7 +190,6 @@ export default function QuizSlide() {
     }
   };
 
-  // === Animasi Slide ===
   const variants = {
     enter: (dir) => ({ opacity: 0, x: dir === 1 ? 60 : -60 }),
     center: { opacity: 1, x: 0, transition: { duration: 0.35 } },
@@ -239,67 +200,211 @@ export default function QuizSlide() {
     }),
   };
 
-  return (
-    <div className="min-h-screen bg-white pb-12 mt-16">
-      {/* Header */}
-      <header className="bg-[#FDF06F] py-10 px-4 mb-12">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center">
-          {pageTitles[currentPage]}
-        </h1>
-      </header>
+  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (pages.length === 0)
+    return <p className="text-center mt-20">Tidak ada data.</p>;
 
-      {/* Questions */}
-      <main className="max-w-3xl mx-auto px-6">
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={currentPage}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-          >
-            {currentQuestions.map((q) => (
-              <div key={q.id} className="mb-10">
-                <p className="text-lg font-medium mb-2">{q.text}</p>
-                <LikertScale
-                  questionId={q.id}
-                  selectedValue={answers[q.id]}
-                  onChange={handleAnswerChange}
+  const page = pages[currentPage];
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+
+    // Hanya izinkan karakter yang valid untuk email
+    const allowed = /^[a-zA-Z0-9@._-]*$/;
+
+    if (!allowed.test(value)) return; // blok input karakter ilegal
+
+    setUserData({ ...userData, email: value });
+  };
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email);
+
+  return (
+    <>
+      <div className="min-h-screen bg-white pb-12 mt-16">
+        {/* Header */}
+        <header className="bg-[#FDF06F] py-10 px-4 mb-12">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center">
+            {`${currentPage + 1}/5 Core: ${page.coreName}`}
+          </h1>
+        </header>
+
+        {/* Questions */}
+        <main className="max-w-3xl mx-auto px-6">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentPage}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+            >
+              {page.questions.map((q) => (
+                <div key={q.id} className="mb-10">
+                  <p className="text-lg font-medium mb-2">{q.text}</p>
+                  <LikertScale
+                    questionId={q.id}
+                    selectedValue={answers[q.id]}
+                    onChange={handleAnswerChange}
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Buttons */}
+          <div className="flex justify-center gap-12 mt-10">
+            {/* Tombol Kembali */}
+            {currentPage > 0 && (
+              <button
+                onClick={prevPage}
+                className="bg-[#FDF06F] hover:bg-[#faea4e] text-black font-bold py-3 px-10 rounded-lg shadow-md"
+              >
+                Kembali
+              </button>
+            )}
+
+            {/* Jika masih ada halaman */}
+            {currentPage < pages.length - 1 ? (
+              <button
+                onClick={() => {
+                  if (!isPageComplete()) {
+                    alert("Harap isi semua pertanyaan sebelum melanjutkan.");
+                    return;
+                  }
+                  nextPage();
+                }}
+                className="bg-[#1F3B63] hover:bg-[#162a47] text-white font-bold py-3 px-10 rounded-lg shadow-md"
+              >
+                Selanjutnya
+              </button>
+            ) : (
+              /* Jika halaman terakhir → buka form */
+              <button
+                onClick={() => {
+                  if (!isPageComplete()) {
+                    alert(
+                      "Harap isi semua pertanyaan sebelum menyelesaikan asesmen."
+                    );
+                    return;
+                  }
+                  setShowFormModal(true);
+                }}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg shadow-md"
+              >
+                Selesai
+              </button>
+            )}
+          </div>
+        </main>
+      </div>
+      {/* ================== MODAL FORM DATA DIRI ================== */}
+      {showFormModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[999]">
+          <div className="bg-white w-[90%] max-w-lg rounded-2xl p-10 shadow-xl relative">
+            {/* JUDUL */}
+            <h2 className="text-3xl font-bold text-center mb-2">
+              Satu Langkah Lagi
+            </h2>
+            <p className="text-center text-gray-600 mb-10">
+              Isi form dan dapatkan hasil asesmen!
+            </p>
+
+            {/* FORM */}
+            <div className="flex flex-col gap-4">
+              {/* Nama */}
+              <div>
+                <label className="font-medium">Nama*</label>
+                <input
+                  id="name"
+                  aria-label="Nama"
+                  type="text"
+                  value={userData.name}
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
+                  className="w-full border rounded-md p-3 mt-1"
                 />
               </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
 
-        {/* Buttons */}
-        <div className="flex justify-center gap-12 mt-10">
-          {currentPage > 0 && (
-            <button
-              onClick={prevPage}
-              className="bg-[#FDF06F] hover:bg-[#faea4e] text-black font-bold py-3 px-10 rounded-lg shadow-md"
-            >
-              Kembali
-            </button>
-          )}
+              {/* Email */}
+              <label className="font-medium">Email*</label>
+              <div>
+                <label className="font-medium">Email*</label>
+                <input
+                  id="email"
+                  aria-label="Email"
+                  type="text"
+                  value={userData.email}
+                  onChange={handleEmailChange}
+                  className={`w-full border rounded-md p-3 mt-1 ${
+                    userData.email && !isEmailValid ? "border-red-500" : ""
+                  }`}
+                  placeholder="name@example.com"
+                />
 
-          {currentPage < totalPages - 1 ? (
+                {/* error realtime */}
+                {userData.email && !isEmailValid && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Format email tidak valid.
+                  </p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="font-medium">Nomor Handphone*</label>
+                <input
+                  id="phone_number"
+                  aria-label="Nomor Handphone"
+                  type="text"
+                  value={userData.phone_number}
+                  onChange={(e) =>
+                    setUserData({ ...userData, phone_number: e.target.value })
+                  }
+                  className="w-full border rounded-md p-3 mt-1"
+                />
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label className="font-medium">Jenis Kelamin*</label>
+                <select
+                  id="gender"
+                  aria-label="Jenis Kelamin"
+                  value={userData.gender}
+                  onChange={(e) =>
+                    setUserData({ ...userData, gender: e.target.value })
+                  }
+                  className="w-full border rounded-md p-3 mt-1"
+                >
+                  <option value="">Pilih Gender</option>
+                  <option value="male">Laki-laki</option>
+                  <option value="female">Perempuan</option>
+                </select>
+              </div>
+            </div>
+
+            {/* BUTTON SUBMIT */}
             <button
-              onClick={nextPage}
-              className="bg-[#1F3B63] hover:bg-[#162a47] text-white font-bold py-3 px-10 rounded-lg shadow-md"
+              onClick={handleSubmitUser}
+              disabled={loadingSubmit}
+              className="bg-blue-600 text-white p-3 rounded-lg w-full mt-3 disabled:bg-blue-300"
             >
-              Selanjutnya
+              {loadingSubmit ? "Mengirim..." : "Kirim Hasil"}
             </button>
-          ) : (
+
+            {/* Close Button (opsional) */}
             <button
-              onClick={() => alert("Submit!")}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg shadow-md"
+              onClick={() => setShowFormModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-black"
             >
-              Selesai
+              ✕
             </button>
-          )}
+          </div>
         </div>
-      </main>
-    </div>
+      )}
+    </>
   );
 }
