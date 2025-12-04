@@ -28,7 +28,7 @@ const Navbar = () => {
       //   { name: "Kelas Online", href: "#produk-kelas" },
       // ],
     },
-    { name: "5 Core Tes", href: "/quiz/1" },
+    { name: "5 Core Test", href: "/quiz/1" },
     { name: "Tim Kami", href: "#team" },
   ];
 
