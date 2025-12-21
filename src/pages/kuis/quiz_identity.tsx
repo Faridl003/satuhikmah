@@ -84,6 +84,18 @@ export default function QuizSlide() {
     domicile: "",
   });
 
+  const resetForm = () => {
+    setUserData({
+      name: "",
+      email: "",
+      phone_number: "",
+      gender: "",
+      age: "",
+      occupation: "",
+      domicile: "",
+    });
+  };
+
   const isPageComplete = () => {
     const currentQuestions = pages[currentPage].questions;
     return currentQuestions.every((q) => answers[q.id] !== undefined);
@@ -123,6 +135,7 @@ export default function QuizSlide() {
     if (
       !userData.name ||
       !userData.email ||
+      !userData.phone_number ||
       !userData.gender ||
       !userData.age ||
       !userData.occupation ||
@@ -165,6 +178,7 @@ export default function QuizSlide() {
       console.log("HASIL DARI BACKEND:", data);
 
       if (!res.ok) {
+        console.error("ERROR BACKEND:", data);
         alert(data.message || "Gagal mengirim hasil asesmen.");
         setLoadingSubmit(false);
         return;
@@ -445,7 +459,7 @@ export default function QuizSlide() {
             {/* BUTTON SUBMIT */}
             <button
               onClick={handleSubmitUser}
-              disabled={loadingSubmit}
+              disabled={loadingSubmit || !isEmailValid}
               className="bg-blue-600 text-white p-2 rounded-lg w-full mt-3 disabled:bg-blue-300"
             >
               {loadingSubmit ? "Mengirim..." : "Kirim Hasil"}
@@ -453,7 +467,10 @@ export default function QuizSlide() {
 
             {/* Close Button (opsional) */}
             <button
-              onClick={() => setShowFormModal(false)}
+              onClick={() => {
+                setShowFormModal(false);
+                resetForm();
+              }}
               className="absolute top-4 right-4 text-gray-500 hover:text-black"
             >
               ✕
