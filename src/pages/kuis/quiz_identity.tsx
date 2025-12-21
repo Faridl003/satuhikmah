@@ -6,31 +6,25 @@ import { useNavigate } from "react-router-dom";
 const LikertScale = ({ questionId, selectedValue, onChange }) => {
   const options = [
     {
-      value: 1,
+      value: 1, // Sangat Tidak Setuju
       size: "w-10 h-10",
       colorClass: "border-[#1F3B63]",
       activeClass: "bg-[#1F3B63]",
     },
     {
-      value: 2,
-      size: "w-9 h-9",
+      value: 2, // Tidak Setuju
+      size: "w-8 h-8",
       colorClass: "border-[#5C7C9F]",
       activeClass: "bg-[#5C7C9F]",
     },
     {
-      value: 3,
-      size: "w-7 h-7",
-      colorClass: "border-gray-400",
-      activeClass: "bg-gray-400",
-    },
-    {
-      value: 4,
-      size: "w-9 h-9",
+      value: 3, // Setuju
+      size: "w-8 h-8",
       colorClass: "border-[#F4D03F]",
       activeClass: "bg-[#F4D03F]",
     },
     {
-      value: 5,
+      value: 4, // Sangat Setuju
       size: "w-10 h-10",
       colorClass: "border-[#D4AC0D]",
       activeClass: "bg-[#D4AC0D]",
@@ -39,7 +33,10 @@ const LikertScale = ({ questionId, selectedValue, onChange }) => {
 
   return (
     <div className="flex items-center justify-between w-full max-w-md mx-auto mt-4 mb-8">
-      <span className="text-[#1F3B63] font-semibold text-sm w-16">Setuju</span>
+      {/* KIRI → TIDAK SETUJU */}
+      <span className=" text-[#1F3B63] font-semibold text-sm w-24">
+        Sangat Tidak Setuju
+      </span>
 
       <div className="flex items-center justify-between flex-1 px-4 gap-4">
         {options.map((opt) => (
@@ -49,16 +46,17 @@ const LikertScale = ({ questionId, selectedValue, onChange }) => {
             type="button"
             onClick={() => onChange(questionId, opt.value)}
             className={`rounded-full border-2 flex items-center justify-center transition-all
-              ${opt.size} ${opt.colorClass}
-              ${
-                selectedValue === opt.value ? opt.activeClass : "bg-transparent"
-              }`}
+            ${opt.size} ${opt.colorClass}
+            ${
+              selectedValue === opt.value ? opt.activeClass : "bg-transparent"
+            }`}
           />
         ))}
       </div>
 
-      <span className="text-[#D4AC0D] font-semibold text-sm w-16 text-right">
-        Tidak Setuju
+      {/* KANAN → SETUJU */}
+      <span className="text-[#D4AC0D] font-semibold text-sm w-24 text-right">
+        Sangat Setuju
       </span>
     </div>
   );
@@ -81,6 +79,9 @@ export default function QuizSlide() {
     email: "",
     phone_number: "",
     gender: "",
+    age: "",
+    occupation: "",
+    domicile: "",
   });
 
   const isPageComplete = () => {
@@ -119,8 +120,15 @@ export default function QuizSlide() {
   }, []);
 
   const handleSubmitUser = async () => {
-    if (!userData.name || !userData.email || !userData.gender) {
-      alert("Nama, email, dan gender wajib diisi!");
+    if (
+      !userData.name ||
+      !userData.email ||
+      !userData.gender ||
+      !userData.age ||
+      !userData.occupation ||
+      !userData.domicile
+    ) {
+      alert("Semua data wajib diisi!");
       return;
     }
 
@@ -142,6 +150,7 @@ export default function QuizSlide() {
 
     const payload = {
       ...userData,
+      age: Number(userData.age),
       answers: formattedAnswers,
     };
 
@@ -307,7 +316,7 @@ export default function QuizSlide() {
             <h2 className="text-3xl font-bold text-center mb-2">
               Satu Langkah Lagi
             </h2>
-            <p className="text-center text-gray-600 mb-10">
+            <p className="text-center text-gray-600 mb-8">
               Isi form dan dapatkan hasil asesmen!
             </p>
 
@@ -315,7 +324,7 @@ export default function QuizSlide() {
             <div className="flex flex-col gap-4">
               {/* Nama */}
               <div>
-                <label className="font-medium">Nama*</label>
+                <label className="text-sm font-medium">Nama*</label>
                 <input
                   id="name"
                   aria-label="Nama"
@@ -324,21 +333,21 @@ export default function QuizSlide() {
                   onChange={(e) =>
                     setUserData({ ...userData, name: e.target.value })
                   }
-                  className="w-full border rounded-md p-3 mt-1"
+                  className="w-full border rounded-md p-2 text-sm mt-1"
                 />
               </div>
 
               {/* Email */}
-              <label className="font-medium">Email*</label>
+
               <div>
-                <label className="font-medium">Email*</label>
+                <label className="text-sm font-medium">Email*</label>
                 <input
                   id="email"
                   aria-label="Email"
                   type="text"
                   value={userData.email}
                   onChange={handleEmailChange}
-                  className={`w-full border rounded-md p-3 mt-1 ${
+                  className={`w-full border rounded-md p-2 text-sm mt-1 ${
                     userData.email && !isEmailValid ? "border-red-500" : ""
                   }`}
                   placeholder="name@example.com"
@@ -354,7 +363,7 @@ export default function QuizSlide() {
 
               {/* Phone */}
               <div>
-                <label className="font-medium">Nomor Handphone*</label>
+                <label className="text-sm font-medium">Nomor Handphone*</label>
                 <input
                   id="phone_number"
                   aria-label="Nomor Handphone"
@@ -363,13 +372,13 @@ export default function QuizSlide() {
                   onChange={(e) =>
                     setUserData({ ...userData, phone_number: e.target.value })
                   }
-                  className="w-full border rounded-md p-3 mt-1"
+                  className="w-full border rounded-md p-2 text-sm mt-1"
                 />
               </div>
 
               {/* Gender */}
               <div>
-                <label className="font-medium">Jenis Kelamin*</label>
+                <label className="text-sm font-medium">Jenis Kelamin*</label>
                 <select
                   id="gender"
                   aria-label="Jenis Kelamin"
@@ -377,12 +386,59 @@ export default function QuizSlide() {
                   onChange={(e) =>
                     setUserData({ ...userData, gender: e.target.value })
                   }
-                  className="w-full border rounded-md p-3 mt-1"
+                  className="w-full border rounded-md p-2 text-sm mt-1"
                 >
                   <option value="">Pilih Gender</option>
                   <option value="male">Laki-laki</option>
                   <option value="female">Perempuan</option>
                 </select>
+              </div>
+
+              {/* Age */}
+              <div>
+                <label className="text-sm font-medium">Usia*</label>
+                <input
+                  id="age"
+                  aria-label="Usia"
+                  type="number"
+                  min="1"
+                  value={userData.age}
+                  onChange={(e) =>
+                    setUserData({ ...userData, age: e.target.value })
+                  }
+                  className="w-full border rounded-md p-2 text-sm mt-1"
+                  placeholder="Contoh: 21"
+                />
+              </div>
+              {/* Occupation */}
+              <div>
+                <label className="text-sm font-medium">Pekerjaan*</label>
+                <input
+                  id="occupation"
+                  aria-label="Pekerjaan"
+                  type="text"
+                  value={userData.occupation}
+                  onChange={(e) =>
+                    setUserData({ ...userData, occupation: e.target.value })
+                  }
+                  className="w-full border rounded-md p-2 text-sm mt-1"
+                  placeholder="Contoh: Mahasiswa"
+                />
+              </div>
+              {/* Domicile */}
+              <div>
+                <label className="text-sm font-medium">Domisili*</label>
+                <input
+                  id="domicile"
+                  aria-label="Domisili"
+                  type="text"
+                  value={userData.domicile}
+                  onChange={(e) =>
+                    setUserData({ ...userData, domicile: e.target.value })
+                  }
+                  className="w-full border rounded-md p-2 text-sm mt-1"
+                  placeholder="Contoh: Surabaya"
+                />
               </div>
             </div>
 
@@ -390,7 +446,7 @@ export default function QuizSlide() {
             <button
               onClick={handleSubmitUser}
               disabled={loadingSubmit}
-              className="bg-blue-600 text-white p-3 rounded-lg w-full mt-3 disabled:bg-blue-300"
+              className="bg-blue-600 text-white p-2 rounded-lg w-full mt-3 disabled:bg-blue-300"
             >
               {loadingSubmit ? "Mengirim..." : "Kirim Hasil"}
             </button>

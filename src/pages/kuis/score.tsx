@@ -205,8 +205,13 @@ export default function ResultPage() {
 
       {/* RESULT + RADAR CHART */}
       <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="bg-white p-6 rounded-xl shadow">
+        <div className="bg-white p-6 rounded-xl shadow text-center">
           <Radar data={radarData} options={radarOptions} />
+
+          <p>
+            Catatan: Hasil ini bukan diagnosa, tapi panduan untuk lihat
+            kekuatanmu dan area yang bisa dikembangkan
+          </p>
         </div>
 
         <div className="bg-yellow-200 p-6 rounded-xl shadow">
