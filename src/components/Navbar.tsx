@@ -153,7 +153,9 @@ const Navbar = () => {
           {/* Tombol kanan */}
           <div className="hidden md:flex">
             <Button
-              onClick={() => handleNavClick("#contact")}
+              onClick={() =>
+                window.open("https://wa.me/6289528164600", "_blank")
+              }
               className="bg-[#1E3A5F] hover:bg-[#1E4A7A] text-white text-sm font-medium rounded-md px-5 py-2"
             >
               Kontak Kami

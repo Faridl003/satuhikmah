@@ -3,23 +3,22 @@ import React, { useState } from "react";
 // You can replace this with your actual program data
 const programsData = [
   {
-    tag: "Muda Berhikmah",
-    title: "Sekolah Pra-Nikah Gen Z: Self Check",
+    tags: ["Identity", "Purpose", "Values"],
+    title: "5 Core Roots Online Workshop",
     description:
-      "Menikah bukan akhir dari perjalananmu berkarya, justru awal untuk tumbuh bersama pasangan.",
-    imageUrl: "/assets/banner/Nikah.png",
-    imageAlt: "Sekolah Pra-Nikah Gen Z Event Poster",
+      "Perjalanan intensif selama 1 bulan menemukan kembali makna hidup sebagai muslim sejati.",
+    imageUrl: "/assets/banner/muslim-life.png",
+    imageAlt: "5 Core Roots Online Workshop Poster",
   },
   {
-    tag: "Kembara Hikmah",
-    title: "Kembara Hikmah #2",
-    description:
-      "Saatnya menepi sejenak, bernafas bersama keindahan alam-Nya, dan menemukan versi terbaik diri kita bersama Kembara Hikmah.",
-    imageUrl: "/assets/banner/kembaraHikmah.png",
-    imageAlt: "Kembara Hikmah #2 Event Poster",
+    tags: ["Values", "Self Regulation"],
+    title: "Pendaki Hikmah #1",
+    description: "Hiking Islami | Refleksi Qur'an & Tadabbur Alam.",
+    imageUrl: "/assets/banner/pendaki-hikmah.png",
+    imageAlt: "Pendaki Hikmah Poster",
   },
   {
-    tag: "Muda Hikmah",
+    tags: ["[Muda Hikmah]"],
     title: "Grit for Gen Z",
     description:
       "GRIT FOR GEN Z: Yuk, Bangun Daya Tahan & Karakter Bernilai di Era Serba Cepat!!.",
@@ -101,9 +100,17 @@ export default function ProgramsSection({ judul, subsJud }) {
                   >
                     {/* Text Content */}
                     <div className="p-8 lg:p-10 w-full md:w-1/2 flex flex-col justify-center">
-                      <span className="bg-gray-100 text-gray-800 text-sm font-medium self-start px-3 py-1.5 rounded-lg">
-                        {program.tag}
-                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {program.tags.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className=" text-gray-800 text-xs sm:text-sm font-medium px-2 py-1.5 border border-gray-200"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
                       <h3 className="mt-6 text-2xl font-bold text-gray-900 leading-tight">
                         {program.title}
                       </h3>
@@ -111,7 +118,9 @@ export default function ProgramsSection({ judul, subsJud }) {
                         {program.description}
                       </p>
                       <a
-                        href="#"
+                        href="https://wa.me/6289528164600"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="mt-8 inline-flex items-center font-semibold text-gray-900 hover:text-gray-700 transition-colors"
                       >
                         Daftar Sekarang
