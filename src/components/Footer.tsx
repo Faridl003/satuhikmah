@@ -1,108 +1,150 @@
-import { MapPin, Phone, Mail, Instagram } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground" id="contact">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+    <footer className="bg-white border-t border-gray-200 text-gray-800">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2 mb-5">
               <img
-                src="/lovable-uploads/d6604ed3-4ec7-4ef7-bc70-c7c7008ab589.png"
-                alt="SatuHikmah Logo"
-                className="w-8 h-8"
+                src="/assets/logo/satuhikmah2.png"
+                alt="Logo SatuHikmah"
+                className="w-30 h-10"
               />
-              <span className="text-xl font-bold">SatuHikmah</span>
             </div>
-            <p className="text-primary-foreground/80 leading-relaxed mb-4">
-              Menemani Generasi Muda Menemukan Arah, Makna, dan Cahaya Hikmah.
-              Komunitas pembinaan yang memadukan nilai Islam, social learning,
-              dan aksi nyata.
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Dapatkan informasi terbaru dengan bergabung dalam komunitas.
             </p>
-            <div className="flex space-x-4">
-              <button
-                onClick={() =>
-                  window.open(
-                    "https://www.instagram.com/satuhikmah.id",
-                    "_blank"
-                  )
-                }
-                className="text-primary-foreground/80 hover:text-secondary transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() =>
-                  window.open("https://wa.me/6289528164600", "_blank")
-                }
-                className="text-primary-foreground/80 hover:text-secondary transition-colors"
-                aria-label="WhatsApp"
-              >
-                <Phone className="w-5 h-5" />
-              </button>
-            </div>
+            <a
+              href="https://chat.whatsapp.com/GBirJ9uEJXEEzZNBSPzhrd"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-gray-300 rounded-lg px-6 py-3 font-medium hover:bg-gray-100 transition"
+            >
+              Join Our Community
+            </a>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4">Menu</h3>
-            <ul className="space-y-2">
-              {[
-                { name: "Home", href: "#home" },
-                { name: "Our Team", href: "#team" },
-                { name: "About", href: "#about" },
-                { name: "Program", href: "#program" },
-                { name: "Contact", href: "#contact" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <button
-                    onClick={() => {
-                      const element = document.querySelector(item.href);
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
-                    className="text-primary-foreground/80 hover:text-secondary transition-colors"
-                  >
-                    {item.name}
-                  </button>
-                </li>
-              ))}
+            <h4 className="font-semibold mb-4">Quick links</h4>
+            <ul className="space-y-3 text-gray-600">
+              <li>
+                <a href="#program" className="hover:text-primary">
+                  Beranda
+                </a>
+              </li>
+              <li>
+                <a href="#program" className="hover:text-primary">
+                  Program
+                </a>
+              </li>
+              <li>
+                <a href="#produk" className="hover:text-primary">
+                  Produk
+                </a>
+              </li>
+              <li>
+                <a href="#team" className="hover:text-primary">
+                  Tim Kami
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Produk */}
           <div>
-            <h3 className="font-semibold mb-4">Kontak</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start space-x-2">
-                <MapPin className="w-4 h-4 mt-0.5 text-secondary" />
-                <span className="text-primary-foreground/80">
-                  Jl. Sukolilo Regency Blok A-46, Sukolilo, Surabaya
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-secondary" />
-                <span className="text-primary-foreground/80">
-                  0895-2816-4600
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-secondary" />
-                <span className="text-primary-foreground/80">
-                  mirzasp841@gmail.com
-                </span>
-              </div>
-            </div>
+            <h4 className="font-semibold mb-4">Produk</h4>
+            <ul className="space-y-3 text-gray-600">
+              <li>Webinar</li>
+              <li>Buku</li>
+              <li>Merchandise</li>
+            </ul>
+          </div>
+
+          {/* Social */}
+          <div>
+            <h4 className="font-semibold mb-4">Follow us</h4>
+            <ul className="space-y-4 text-gray-700">
+              <li>
+                <a
+                  href="https://facebook.com/satuhikmah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:text-primary transition"
+                  aria-label="Facebook SatuHikmah"
+                >
+                  <Facebook size={18} /> Facebook
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://instagram.com/satuhikmah.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:text-primary transition"
+                  aria-label="Instagram SatuHikmah"
+                >
+                  <Instagram size={18} /> Instagram
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://x.com/satuhikmah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:text-primary transition"
+                  aria-label="X SatuHikmah"
+                >
+                  <Twitter size={18} /> X
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://linkedin.com/company/satuhikmah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:text-primary transition"
+                  aria-label="LinkedIn SatuHikmah"
+                >
+                  <Linkedin size={18} /> LinkedIn
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://youtube.com/@satuhikmah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:text-primary transition"
+                  aria-label="Youtube SatuHikmah"
+                >
+                  <Youtube size={18} /> Youtube
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-          <p className="text-primary-foreground/60 text-sm">
-            © 2025 SatuHikmah. All rights reserved
-          </p>
+        {/* Bottom */}
+        <div className="border-t mt-16 pt-6 flex flex-col md:flex-row justify-between text-sm text-gray-500">
+          <p>© 2025 SatuHikmah. All rights reserved.</p>
+          <div className="flex gap-6 mt-3 md:mt-0">
+            <a href="#" className="hover:text-primary">
+              Privacy policy
+            </a>
+            <a href="#" className="hover:text-primary">
+              Terms of service
+            </a>
+            <a href="#" className="hover:text-primary">
+              Cookies settings
+            </a>
+          </div>
         </div>
       </div>
     </footer>
