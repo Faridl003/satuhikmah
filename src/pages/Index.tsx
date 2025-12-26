@@ -4,6 +4,7 @@ import CommunityVoices from "./comunity_voices";
 import OurTeam from "./our_team";
 import OurValues from "./our_values";
 import ProductsSection from "./product";
+import HeroSlider from "./heroslider";
 import { useEffect } from "react";
 
 const Index = () => {
@@ -186,22 +187,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="mt-20 relative">
-        <img
-          src="/images/slide1.jpg"
-          alt="Kembara Hikmah"
-          className="w-full h-[450px] object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-white text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
-            Kembara Hikmah #2
-          </h1>
-          <p className="text-gray-100 text-lg md:text-xl max-w-3xl leading-relaxed">
-            Sebuah perjalanan alam mendekat kepada Allah dan menemukan versi
-            terbaik diri sendiri bersama Kembara Hikmah hadir kembali 🙌🏻
-          </p>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* Statistik */}
       <section className="bg-[#0F2947] text-white py-5 flex flex-wrap justify-center gap-16 text-center">
